@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="afce8fd2-a7c1-4e49-9f17-ac05ee736c7a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Perzeptron.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Perzeptron.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +44,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1672678669131</updated>
-      <workItem from="1672678670162" duration="1200000" />
+      <workItem from="1672678670162" duration="1614000" />
     </task>
     <servers />
   </component>
