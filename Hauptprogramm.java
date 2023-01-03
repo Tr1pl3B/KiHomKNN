@@ -17,6 +17,6 @@ public class Hauptprogramm {
 		
 		//4. Netz evaluieren
 		p.evaluieren();
-		//hab den data ordner erstellt, damit es auch richtig läuft
+		//thomas versuch
 	}
 }
