@@ -63,7 +63,9 @@ public class Perzeptron {
 		//Uebungsaufgabe 1
 		//Hier euren Sourcecode einfuegen
 		for(int i = 0; i < w.length; i++){
+			//System.out.println(i+" alpha:"+alpha+" gewicht:"+w[i]+" x[i]:"+x[i]+" delta:"+delta+" vor aktualisierung");
 			w[i] = w[i] + alpha * x[i] * delta;
+			//System.out.println(i+" "+w[i] + " nach aktualisierung");
 		}
 	}
 	
