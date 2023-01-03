@@ -17,6 +17,6 @@ public class Hauptprogramm {
 		
 		//4. Netz evaluieren
 		p.evaluieren();
-		//thomas versuch
+		//klappt noch alles????
 	}
 }
