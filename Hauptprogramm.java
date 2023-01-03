@@ -17,6 +17,6 @@ public class Hauptprogramm {
 		
 		//4. Netz evaluieren
 		p.evaluieren();
-		//klappt noch alles????
+		//branch GewichteAktualisieren
 	}
 }
