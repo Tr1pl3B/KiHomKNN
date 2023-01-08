@@ -98,7 +98,16 @@ public class Perzeptron {
 			}
 			System.out.println();
 		}
-	}	
+	}
+
+	//Die out berechnen Funktion mit dem Sigmoid
+	public double outBerechnenMitSig(double[] xWerte){
+		double in = skalarProdukt(w, xWerte);
+		// out(x) = sig(in(x))
+		// sig (x) = 1/(1+e^(-x))
+		double sig = 1/(1+Math.exp(-in));
+		return sig;
+	}
 
 		
 		
