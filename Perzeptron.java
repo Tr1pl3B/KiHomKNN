@@ -30,7 +30,8 @@ public class Perzeptron {
 				int musterNr = reihenfolge[i];
 				ArrayList<Schicht> schichtListe = outBerechnen(Einlesen.x[musterNr]);
 				schichtListe = fehlerBerechnen(schichtListe);
-//				gewichteAnpassen(delta, alpha, Einlesen.x[musterNr]);
+				System.out.println();
+				gewichteAnpassen(alpha, schichtListe);
 //				anzahlfehler+=Math.abs(delta);
 			}
 			System.out.println("Epoche: " + epoche + " Fehler: " + anzahlfehler);
@@ -107,13 +108,15 @@ public class Perzeptron {
 	}
 	
 	
-	public void gewichteAnpassen(double delta, double alpha, double[] x) {
+	public void gewichteAnpassen(double alpha, ArrayList<Schicht> schichtListe) {
 		//Uebungsaufgabe 1
 		//Hier euren Sourcecode einfuegen
-		for(int i = 0; i < w.length; i++){
-			//System.out.println(i+" alpha:"+alpha+" gewicht:"+w[i]+" x[i]:"+x[i]+" delta:"+delta+" vor aktualisierung");
-			w[i] = w[i] + alpha * x[i] * delta;
-			//System.out.println(i+" "+w[i] + " nach aktualisierung");
+		for (int schichtNr = schichtListe.size()-1; schichtNr > 0; schichtNr--){
+			for (int knotenNr = schichtListe.get(schichtNr).knoteListe.size()-1; knotenNr >= 0; knotenNr--) {
+				double out = 0.0;
+				double delta = schichtListe.get(schichtNr).knoteListe.get(knotenNr).delta;
+				w[2*3+knotenNr] = w[2*3+knotenNr] + alpha * out * (delta);
+			}
 		}
 	}
 	
