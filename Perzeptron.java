@@ -25,7 +25,7 @@ public class Perzeptron {
 		//Trainieren der Gewichte
 		for(int epoche=0;epoche<epochen;epoche++) {
 			musterStochastischAuswaehlen();
-			int anzahlfehler = 0;
+			double anzahlfehler = 0;
 			for(int i=0;i<reihenfolge.length;i++) {//fuer jedes Muster m
 				int musterNr = reihenfolge[i];
 				ArrayList<Schicht> schichtListe = outBerechnen(Einlesen.x[musterNr]);
