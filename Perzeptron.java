@@ -141,7 +141,7 @@ public class Perzeptron {
 
 	
 	private int aktivierungsFunktionSchwellwert(double x) {
-		if(x<0)return 0;
+		if(x<5)return 0;
 		else   return 1;
 	}	
 	
@@ -153,13 +153,14 @@ public class Perzeptron {
 				x[1] = (double)(s/100.);
 				x[2] = (double)(z/100.);
 				ArrayList<Schicht> schichtListe = outBerechnen(x);
-				int out = aktivierungsFunktionSchwellwert(schichtListe.get(2).knoteListe.get(0).out);
+				int out = aktivierungsFunktionSchwellwert(schichtListe.get(2).knoteListe.get(0).in);
 				//if(z==90 && s==20)
 				System.out.print(out);
 			}
 			System.out.println();
 		}
 	}
+
 
 	//Die out berechnen Funktion mit dem Sigmoid
 	public double outBerechnenMitSig(double in){

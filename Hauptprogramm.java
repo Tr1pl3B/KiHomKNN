@@ -13,10 +13,10 @@ public class Hauptprogramm {
 		Perzeptron p = new Perzeptron();
 		
 		//3. Netz trainieren
-		p.trainieren(200, 0.01);
+		p.trainieren(100001, 0.01);
 		
 		//4. Netz evaluieren
-		p.evaluieren();
+		p.eval2();
 		//branch GewichteAktualisieren
 	}
 }
