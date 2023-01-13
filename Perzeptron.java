@@ -25,14 +25,13 @@ public class Perzeptron {
 		//Trainieren der Gewichte
 		for(int epoche=0;epoche<epochen;epoche++) {
 			musterStochastischAuswaehlen();
-			int anzahlfehler = 0;			
+			int anzahlfehler = 0;
 			for(int i=0;i<reihenfolge.length;i++) {//fuer jedes Muster m
 				int musterNr = reihenfolge[i];
 				ArrayList<Schicht> schichtListe = outBerechnen(Einlesen.x[musterNr]);
 				schichtListe = fehlerBerechnen(schichtListe);
-				System.out.println();
 				gewichteAnpassen(alpha, schichtListe);
-//				anzahlfehler+=Math.abs(delta);
+				
 			}
 			System.out.println("Epoche: " + epoche + " Fehler: " + anzahlfehler);
 			if(anzahlfehler == 0)break;		
@@ -69,7 +68,7 @@ public class Perzeptron {
 	public ArrayList<Schicht> outBerechnen(double[] xWerte) {
 		ArrayList<Schicht> schichtListe = new ArrayList<>();
 		Schicht schicht = new Schicht();
-		schicht.knoteListe.add(new Knoten(1));
+		schicht.knoteListe.add(new Knoten(1, 1));
 		schicht.knoteListe.add(new Knoten(xWerte[0]));
 		schicht.knoteListe.add(new Knoten(xWerte[1]));
 		schichtListe.add(schicht);
@@ -107,15 +106,20 @@ public class Perzeptron {
 		}
 	}
 	
-	
 	public void gewichteAnpassen(double alpha, ArrayList<Schicht> schichtListe) {
 		//Uebungsaufgabe 1
 		//Hier euren Sourcecode einfuegen
+		int gewichtNr = w.length-1;
 		for (int schichtNr = schichtListe.size()-1; schichtNr > 0; schichtNr--){
-			for (int knotenNr = schichtListe.get(schichtNr).knoteListe.size()-1; knotenNr >= 0; knotenNr--) {
-				double out = 0.0;
-				double delta = schichtListe.get(schichtNr).knoteListe.get(knotenNr).delta;
-				w[2*3+knotenNr] = w[2*3+knotenNr] + alpha * out * (delta);
+			int limit = (schichtNr == schichtListe.size()-1) ? 0 : 1;
+			for (int knotenNr = schichtListe.get(schichtNr).knoteListe.size()-1; knotenNr >= limit; knotenNr--) {
+				for (int tochterKnoten = schichtListe.get(schichtNr-1).knoteListe.size()-1; tochterKnoten >= 0; tochterKnoten--) {
+					double out = schichtListe.get(schichtNr - 1).knoteListe.get(tochterKnoten).out;
+					double delta = schichtListe.get(schichtNr).knoteListe.get(knotenNr).delta;
+					w[gewichtNr] = w[gewichtNr] + alpha * out * delta;
+					gewichtNr--;
+				}
+
 			}
 		}
 	}
@@ -137,20 +141,21 @@ public class Perzeptron {
 		else   return 1;
 	}	
 	
-//	public void evaluieren() {
-//		double[] x = new double[3];
-//		for(int z=100;z>=0;z=z-1) {
-//			for(int s=0;s<=100;s=s+1) {
-//				x[0] = 1.;
-//				x[1] = (double)(s/100.);
-//				x[2] = (double)(z/100.);
-//				int out = outBerechnen(x);
-//				//if(z==90 && s==20)
-//				System.out.print(out);
-//			}
-//			System.out.println();
-//		}
-//	}
+	public void evaluieren() {
+		double[] x = new double[3];
+		for(int z=100;z>=0;z=z-1) {
+			for(int s=0;s<=100;s=s+1) {
+				x[0] = 1.;
+				x[1] = (double)(s/100.);
+				x[2] = (double)(z/100.);
+				ArrayList<Schicht> schichtListe = outBerechnen(x);
+				int out = aktivierungsFunktionSchwellwert(schichtListe.get(2).knoteListe.get(0).out);
+				//if(z==90 && s==20)
+				System.out.print(out);
+			}
+			System.out.println();
+		}
+	}
 
 	//Die out berechnen Funktion mit dem Sigmoid
 	public double outBerechnenMitSig(double in){

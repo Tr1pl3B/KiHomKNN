@@ -16,7 +16,7 @@ public class Hauptprogramm {
 		p.trainieren(200, 0.01);
 		
 		//4. Netz evaluieren
-//		p.evaluieren();
+		p.evaluieren();
 		//branch GewichteAktualisieren
 	}
 }
