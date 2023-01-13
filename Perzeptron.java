@@ -31,7 +31,11 @@ public class Perzeptron {
 				ArrayList<Schicht> schichtListe = outBerechnen(Einlesen.x[musterNr]);
 				schichtListe = fehlerBerechnen(schichtListe);
 				gewichteAnpassen(alpha, schichtListe);
-				
+				for (int schichtNr = schichtListe.size()-1; schichtNr >= 0; schichtNr--){
+					for (int knotenNr = schichtListe.get(schichtNr).knoteListe.size()-1; knotenNr >= 0; knotenNr--) {
+						anzahlfehler += Math.abs(schichtListe.get(schichtNr).knoteListe.get(knotenNr).delta);
+					}
+				}
 			}
 			System.out.println("Epoche: " + epoche + " Fehler: " + anzahlfehler);
 			if(anzahlfehler == 0)break;		
