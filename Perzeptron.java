@@ -47,9 +47,9 @@ public class Perzeptron {
 		for(int schichtNr = schichtListe.size()-1; schichtNr > 0; schichtNr--){
 			schicht = schichtListe.get(schichtNr);
 			if(schicht.knoteListe.size() > 1){
+				int offset = 1;
 				for(int knotenNr = 1; knotenNr < schicht.knoteListe.size(); knotenNr++) {
 					double in = schicht.knoteListe.get(knotenNr).in;
-					int offset = 1;
 					double weight = w[w.length - 1 - offset];
 					offset--;
 					double deltaParent = schichtListe.get(schichtNr+1).knoteListe.get(0).delta;
@@ -73,8 +73,8 @@ public class Perzeptron {
 		ArrayList<Schicht> schichtListe = new ArrayList<>();
 		Schicht schicht = new Schicht();
 		schicht.knoteListe.add(new Knoten(1, 1));
-		schicht.knoteListe.add(new Knoten(xWerte[0]));
 		schicht.knoteListe.add(new Knoten(xWerte[1]));
+		schicht.knoteListe.add(new Knoten(xWerte[2]));
 		schichtListe.add(schicht);
 		schicht = new Schicht();
 		schicht.knoteListe.add(new Knoten(1, 1));
@@ -90,7 +90,7 @@ public class Perzeptron {
 		schicht = new Schicht();
 		double in = 0.0;
 		for(int altKnoten = 0; altKnoten < 3; altKnoten ++){
-			in += schichtListe.get(0).knoteListe.get(altKnoten).in * w[2*3+altKnoten];
+			in += schichtListe.get(1).knoteListe.get(altKnoten).out * w[2*3+altKnoten];
 		}
 		double out = outBerechnenMitSig(in);
 		schicht.knoteListe.add(new Knoten(in, out));
@@ -123,25 +123,13 @@ public class Perzeptron {
 					w[gewichtNr] = w[gewichtNr] + alpha * out * delta;
 					gewichtNr--;
 				}
-
 			}
 		}
-	}
-	
-	public double skalarProdukt(double[] w, double[] x) {
-		//Uebungsaufgabe 2
-		double result = 0.0;
-		//Hier euren Sourcecode einfuegen
-		for(int i = 0; i < w.length; i++){
-			result = w[i] * x[i] + result;
-		}
-
-		return result;
 	}
 
 	
 	private int aktivierungsFunktionSchwellwert(double x) {
-		if(x<5)return 0;
+		if(x<0.5)return 0;
 		else   return 1;
 	}	
 	
@@ -164,15 +152,12 @@ public class Perzeptron {
 
 	//Die out berechnen Funktion mit dem Sigmoid
 	public double outBerechnenMitSig(double in){
-		// out(x) = sig(in(x))
-		// sig (x) = 1/(1+e^(-x))
 		double sig = 1/(1+Math.exp(-in));
 		return sig;
 	}
 
-	//albleitung sig e^x/((e^x+1)^2)
 	public double abgeleiteterSigi(double in) {
-		double abgSigi = Math.exp(in)/(Math.pow((Math.exp(in) + 1), 2));
-		return abgSigi;
+		double fx = outBerechnenMitSig(in);
+		return fx * (1 - fx);
 	}
 }
