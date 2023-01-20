@@ -129,7 +129,8 @@ public class Perzeptron {
 
 	
 	private int aktivierungsFunktionSchwellwert(double x) {
-		if(x<0.5)return 0;
+		//System.out.println(x);
+		if(x<6.5)return 0;
 		else   return 1;
 	}	
 	
