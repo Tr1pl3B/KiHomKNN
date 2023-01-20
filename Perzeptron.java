@@ -41,7 +41,8 @@ public class Perzeptron {
 			if(anzahlfehler == 0)break;		
 		}
 	}
-	
+
+	//backwards mit backpropagation
 	public ArrayList<Schicht> fehlerBerechnen(ArrayList<Schicht> schichtListe) {
 		Schicht schicht;
 		for(int schichtNr = schichtListe.size()-1; schichtNr > 0; schichtNr--){
@@ -68,7 +69,8 @@ public class Perzeptron {
 		}
 		return schichtListe;
 	}
-	
+
+	//Forward
 	public ArrayList<Schicht> outBerechnen(double[] xWerte) {
 		ArrayList<Schicht> schichtListe = new ArrayList<>();
 		Schicht schicht = new Schicht();
@@ -109,7 +111,8 @@ public class Perzeptron {
 			reihenfolge[j] = a;
 		}
 	}
-	
+
+	//gewichte anpassen
 	public void gewichteAnpassen(double alpha, ArrayList<Schicht> schichtListe) {
 		//Uebungsaufgabe 1
 		//Hier euren Sourcecode einfuegen
@@ -128,26 +131,40 @@ public class Perzeptron {
 	}
 
 	
-	private int aktivierungsFunktionSchwellwert(double x) {
-		//System.out.println(x);
-		if(x<6.5)return 0;
+	private int aktivierungsFunktionSchwellwert(double x, double schwelle) {
+//		System.out.println(x);
+		if(x<schwelle)return 0;
 		else   return 1;
 	}	
 	
 	public void evaluieren() {
 		double[] x = new double[3];
+		ArrayList<Double> outValues = new ArrayList<>();
 		for(int z=100;z>=0;z=z-1) {
 			for(int s=0;s<=100;s=s+1) {
 				x[0] = 1.;
 				x[1] = (double)(s/100.);
 				x[2] = (double)(z/100.);
 				ArrayList<Schicht> schichtListe = outBerechnen(x);
-				int out = aktivierungsFunktionSchwellwert(schichtListe.get(2).knoteListe.get(0).in);
-				//if(z==90 && s==20)
+				outValues.add(schichtListe.get(2).knoteListe.get(0).out);
+			}
+		}
+		double sum = outValues.stream()
+				.mapToDouble(a -> a)
+				.sum();
+		double schwelle = sum / outValues.size();
+		for(int z=100;z>=0;z=z-1) {
+			for(int s=0;s<=100;s=s+1) {
+				x[0] = 1.;
+				x[1] = (double)(s/100.);
+				x[2] = (double)(z/100.);
+				ArrayList<Schicht> schichtListe = outBerechnen(x);
+				int out = aktivierungsFunktionSchwellwert(schichtListe.get(2).knoteListe.get(0).out,schwelle);
 				System.out.print(out);
 			}
 			System.out.println();
 		}
+
 	}
 
 
